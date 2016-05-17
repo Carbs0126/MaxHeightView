@@ -11,20 +11,29 @@ MaxHeightView is a subClass of FrameLayout, you can use this view in your xml la
 in xml layout:
 ```
 <cn.carbs.android.maxheightview.library.MaxHeightView
-  android:id="@+id/maxview"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   app:mhv_HeightRatio="0.7">
 
-  <LinearLayout
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    ......
-  </LinearLayout>
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+        // add your content view here
+    </LinearLayout>
+
+  </ScrollView>
+
 </cn.carbs.android.maxheightview.library.MaxHeightView>
 ```
-
+## Add to project
+```
+compile 'cn.carbs.android:MaxHeightView:1.0.0'
+```
 ## TODO
 Not support generating a MaxHeightView by java code, but you can modify the constructor with only one argument by adding maxheight ratio or exact pixel
 
