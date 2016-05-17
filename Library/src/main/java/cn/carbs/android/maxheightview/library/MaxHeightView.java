@@ -10,18 +10,6 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 /**
- * 一个可控制其内部子view最大高度的ViewGroup，可在xml文件中使用。
- *
- * 使用方法：
- * 在xml文件中添加MaxHeightView，并添加app:mhv_HeightRatio="float in[0,1]"或者app:mhv_HeightDimen="dimen"。
- *  mhv_HeightRatio属性指定了view最大高度与整个屏幕的高度的比值，如0.7则是最大高度不超过屏幕高度*o.7，其值赋给mMaxRatio。
- *  mhv_HeightDimen属性指定了view最大高度的精确值，其值赋给mMaxDimen。
- *
- * 解析流程：
- *  1.如果没有设定mhv_HeightDimen和mhv_HeightRatio，则最大高度=DEFAULT_MAX_RATIO_WITHOUT_ARGU * 屏幕高度。
- *  2.如果没有设定mhv_HeightDimen，只设定了mhv_HeightRatio，则最大高度=mhv_HeightRatio*屏幕高度。
- *  3.如果设定了mhv_HeightDimen，而没有设定mhv_HeightRatio，则最大高度=mhv_HeightDimen。
- *  4.如果同时设定了mhv_HeightDimen和mhv_HeightRatio，则最大高度=两者计算值的最小值。
  *
  * A ViewGroup which can limit the max height of its child view, used on android platform
  *
@@ -30,12 +18,33 @@ import android.widget.FrameLayout;
  *  mhv_HeightRatio refers to the max height ratio compare to the device screen height.
  *  mhv_HeightDimen refers to the max height dimension.
  *
+ *  <cn.carbs.android.maxheightview.library.MaxHeightView
+ *      android:layout_width="match_parent"
+ *      android:layout_height="wrap_content"
+ *      app:mhv_HeightRatio="0.3">
+ *
+ *      <ScrollView
+ *          android:layout_width="match_parent"
+ *          android:layout_height="wrap_content">
+ *
+ *          <LinearLayout
+ *              android:layout_width="match_parent"
+ *              android:layout_height="wrap_content"
+ *              android:orientation="vertical">
+ *
+ *              // add your content view here
+ *
+ *          </LinearLayout>
+ *      </ScrollView>
+ *  </cn.carbs.android.maxheightview.library.MaxHeightView>
+ *
  *  Analytical procedure:
  *  1.if neighter mhv_HeightDimen nor mhv_HeightRatio set, the max height will be
  *    DEFAULT_MAX_RATIO_WITHOUT_ARGU * device screen height.
  *  2.if you just set mhv_HeightRatio, then the max height will be mhv_HeightRatio * device screen height.
  *  3.if you just set mhv_HeightDimen, then the max height will be mhv_HeightDimen.
  *  4.if you set both mhv_HeightDimen and mhv_HeightRatio, then the max height will be the minume size.
+ *
  * @author Carbs.Wang
  */
 public class MaxHeightView extends FrameLayout {
@@ -117,11 +126,6 @@ public class MaxHeightView extends FrameLayout {
         super.onMeasure(widthMeasureSpec, maxHeightMeasureSpec);
     }
 
-    /**
-     * 获取屏幕高度
-     *
-     * @param context
-     */
     private int getScreenHeight(Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay().getHeight();
